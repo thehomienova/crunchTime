@@ -32,7 +32,7 @@ function operate (x, operator, y) {
         case "/":
             return divide(x, y);
         default:
-            return "Error: Invalid operator";
+            return "error, invalid operator :(";
     }
 }
 
@@ -43,8 +43,11 @@ let currentOperator = "";
 
 buttonContainer.addEventListener("click", (event) => {
     if (event.target.tagName === "BUTTON") {
+        let operators = document.querySelectorAll(".operators")
+        operators.forEach(operator => operator.style.opacity = 1);
+
         let value = event.target.getAttribute("data-value");
-        
+
         if (!isNaN(value) && currentNumber.length < 7) {
             currentNumber += value;
             output.textContent = currentNumber; 
@@ -52,7 +55,7 @@ buttonContainer.addEventListener("click", (event) => {
             output.textContent = "0";
             currentNumber = "";
         } else if (value === "sign"){
-            currentNumber *= (-1);
+            currentNumber = (-1 * Number(currentNumber)).toString();
             output.textContent = currentNumber;
         } else if (value === "percent") {
             currentNumber = (Number(currentNumber) / 100).toFixed(2).toString();
@@ -60,6 +63,27 @@ buttonContainer.addEventListener("click", (event) => {
         } else if (value === "decimal" && !currentNumber.includes(".")) {
             currentNumber += ".";
             output.textContent = currentNumber;
+        }
+
+        switch (value) {
+            case "add":
+                currentOperator = "+";
+                event.target.style.opacity = 0.7;
+                break;
+            case "subtract":
+                currentOperator = "-";
+                event.target.style.opacity = 0.7;
+                break;
+            case "multiply":
+                currentOperator = "*";
+                event.target.style.opacity = 0.7;
+                break;
+            case "divide":
+                currentOperator = "/";
+                event.target.style.opacity = 0.7;
+                break;
+            default: 
+                return "error, no operator found :("
         }
     }
 });
