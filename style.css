@@ -13,11 +13,42 @@ body {
 
 #calc {
     background-color: black;
-    border: 5px red solid;
-    height: 80vh;
-    width: 60vh;
+    border: 10px lightgreen solid;
+    height: 90vh;
+    width: 65vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+}
+
+#display {
+    height: 90px;
+    background-color: lightpink;
+}
+
+#buttons {
     display: flex;
     
 }
+
+#left-side {
+    display: flex;
+    flex-flow: column wrap;
+    flex: 1 1 50%;
+}
+
+.left {
+    width: 100px
+}
+
+
+
+
+#operations {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
 
 
