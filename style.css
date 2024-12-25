@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;    
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0; 
+}
+
+#calc {
+    background-color: black;
+    border: 5px red solid;
+    height: 80vh;
+    width: 60vh;
+    display: flex;
+    
+}
+
+#display {
+    width: 80vh;
+    display: flex;
+    flex-flow: row wrap ;
+    color: green;
+}
+
+#numbers {
+    display: flex;
+}
+
+#operations {
+    display: flex;
+}
+
+
