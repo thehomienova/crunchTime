@@ -29,6 +29,15 @@ buttonContainer.addEventListener("click", (event) => {
         if (!isNaN(value) && currentNumber.length < 7) {
             currentNumber += value;
             output.textContent = currentNumber; 
+        }  else if (value === "clear"){
+            output.textContent ="0";
+            currentNumber = "";
+        } else if (value === "sign"){
+            currentNumber *= (-1);
+            output.textContent = currentNumber;
+        } else if (value === "percent") {
+            currentNumber /= 100;
+            output.textContent = currentNumber;
         }
     }
 });
