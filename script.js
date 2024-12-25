@@ -29,20 +29,34 @@ buttonContainer.addEventListener("click", (event) => {
         if (!isNaN(value) && currentNumber.length < 7) {
             currentNumber += value;
             output.textContent = currentNumber; 
-        }  else if (value === "clear"){
-            output.textContent ="0";
+        } else if (value === "clear"){
+            output.textContent = "0";
             currentNumber = "";
         } else if (value === "sign"){
             currentNumber *= (-1);
             output.textContent = currentNumber;
         } else if (value === "percent") {
-            currentNumber /= 100;
+            currentNumber = (Number(currentNumber) / 100).toFixed(2).toString();
             output.textContent = currentNumber;
         }
     }
 });
 
-function operate (x, y, operator) {
+function operate (x, operator, y) {
+    x = parseFloat(x);
+    y = parseFloat(y);
 
+    switch (operator) {
+        case "+": 
+            return x + y;
+        case "-":
+            return x - y;
+        case "*": 
+            return x * y;
+        case "/":
+            return y === 0 ? "Error: Division by zero" : x / y;
+        default:
+            return "Error: Invalid operator";
+    }
 }
 
