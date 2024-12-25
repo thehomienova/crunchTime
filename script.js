@@ -18,9 +18,28 @@ function divide (x, y) {
     return x / y;
 }
 
+function operate (x, operator, y) {
+    x = parseFloat(x);
+    y = parseFloat(y);
+
+    switch (operator) {
+        case "+": 
+            return add(x,y);
+        case "-":
+            return subtract(x, y);
+        case "*": 
+            return multiply(x, y);
+        case "/":
+            return divide(x, y);
+        default:
+            return "Error: Invalid operator";
+    }
+}
+
 let output = document.querySelector("#output");
 let buttonContainer = document.getElementById("buttons");
 let currentNumber = "";
+let currentOperator = "";
 
 buttonContainer.addEventListener("click", (event) => {
     if (event.target.tagName === "BUTTON") {
@@ -38,25 +57,12 @@ buttonContainer.addEventListener("click", (event) => {
         } else if (value === "percent") {
             currentNumber = (Number(currentNumber) / 100).toFixed(2).toString();
             output.textContent = currentNumber;
+        } else if (value === "decimal" && !currentNumber.includes(".")) {
+            currentNumber += ".";
+            output.textContent = currentNumber;
         }
     }
 });
 
-function operate (x, operator, y) {
-    x = parseFloat(x);
-    y = parseFloat(y);
 
-    switch (operator) {
-        case "+": 
-            return x + y;
-        case "-":
-            return x - y;
-        case "*": 
-            return x * y;
-        case "/":
-            return y === 0 ? "Error: Division by zero" : x / y;
-        default:
-            return "Error: Invalid operator";
-    }
-}
 
