@@ -20,19 +20,4 @@ body {
     
 }
 
-#display {
-    width: 80vh;
-    display: flex;
-    flex-flow: row wrap ;
-    color: green;
-}
-
-#numbers {
-    display: flex;
-}
-
-#operations {
-    display: flex;
-}
-
 
