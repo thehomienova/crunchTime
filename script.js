@@ -18,6 +18,22 @@ function divide (x, y) {
     return x / y;
 }
 
-function operate(x, y, operartor) {
-    
+let output = document.querySelector("#output");
+let buttonContainer = document.getElementById("buttons");
+let currentNumber = "";
+
+buttonContainer.addEventListener("click", (event) => {
+    if (event.target.tagName === "BUTTON") {
+        let value = event.target.getAttribute("data-value");
+        
+        if (!isNaN(value) && currentNumber.length < 7) {
+            currentNumber += value;
+            output.textContent = currentNumber; 
+        }
+    }
+});
+
+function operate (x, y, operator) {
+
 }
+

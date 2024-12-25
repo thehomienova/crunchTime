@@ -8,18 +8,18 @@ body {
 
 #calc {
     background-color: black;
-    border: 5px black solid;
+    border: 7px black solid;
     height: 90vh;
     width: 65vh;
     display: flex;
     flex-direction: column;
-    padding: 0px;
+    padding: 2px;
 }
 
 #display {
-    height: 20%;
-    background-color: lightpink;
-    font-size: 400%;
+    height: 17%;
+    background-color: rgb(221, 221, 221);
+    font-size: 600%;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
@@ -36,12 +36,29 @@ body {
     width: 25%;
     font-size: x-large;
     border-radius: 10%;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+    filter: brightness(90%);
 }
 
 #zero {
     width: 50%;
 }
 
+.misc {
+    background-color: rgb(101, 101, 245);
+}
+
+.operators {
+    background-color: rgb(238, 180, 73);
+}
+
+.numbers {
+    background-color: rgb(122, 250, 122);
+}
 
 
 
