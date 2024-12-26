@@ -66,19 +66,19 @@ buttonContainer.addEventListener("click", (event) => {
         }
 
         switch (value) {
-            case "add":
+            case "+":
                 currentOperator = "+";
                 event.target.style.opacity = 0.7;
                 break;
-            case "subtract":
+            case "-":
                 currentOperator = "-";
                 event.target.style.opacity = 0.7;
                 break;
-            case "multiply":
+            case "*":
                 currentOperator = "*";
                 event.target.style.opacity = 0.7;
                 break;
-            case "divide":
+            case "/":
                 currentOperator = "/";
                 event.target.style.opacity = 0.7;
                 break;
