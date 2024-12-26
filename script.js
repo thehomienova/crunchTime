@@ -12,7 +12,7 @@ function multiply (x, y) {
 
 function divide (x, y) {
     if (y === 0) {
-        return "cant divide by zero gang"; 
+        return "nope"; 
     }
 
     return x / y;
@@ -39,6 +39,8 @@ function operate (x, operator, y) {
 let output = document.querySelector("#output");
 let buttonContainer = document.getElementById("buttons");
 let currentNumber = "";
+let firstNum = "";
+let secondNum = "";
 let currentOperator = "";
 
 buttonContainer.addEventListener("click", (event) => {
@@ -66,22 +68,35 @@ buttonContainer.addEventListener("click", (event) => {
         }
 
         switch (value) {
-            case "+":
+            case "add":
                 currentOperator = "+";
                 event.target.style.opacity = 0.7;
+                firstNum = currentNumber;
+                currentNumber = "";
                 break;
-            case "-":
+            case "subtract":
                 currentOperator = "-";
                 event.target.style.opacity = 0.7;
+                firstNum = currentNumber;
+                currentNumber = "";
                 break;
-            case "*":
+            case "multiply":
                 currentOperator = "*";
                 event.target.style.opacity = 0.7;
+                firstNum = currentNumber;
+                currentNumber = "";
                 break;
-            case "/":
+            case "divide":
                 currentOperator = "/";
                 event.target.style.opacity = 0.7;
+                firstNum = currentNumber;
+                currentNumber = "";
                 break;
+            case "equal":
+                secondNum = currentNumber; 
+                let finalNum = operate(firstNum, currentOperator, secondNum);
+                currentNumber = finalNum;
+                output.textContent = finalNum;
             default: 
                 return "error, no operator found :("
         }
