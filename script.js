@@ -120,6 +120,7 @@ buttonContainer.addEventListener("click", (event) => {
 
 document.addEventListener("keydown", function(event) {
 
+
     let operators = document.querySelectorAll(".operators")
     operators.forEach(operator => operator.style.opacity = 1);
 
@@ -136,14 +137,44 @@ document.addEventListener("keydown", function(event) {
         } else if (Number(output.textContent) > 1) {
             output.textContent = output.textContent.slice(0, -1);
         }
-    
-        
-        
     }
-
+        switch (keyPressed) {
+            case "+":
+            case "-":
+            case "*":
+            case "/":
+                if (firstNum && currentOperator && currentNumber) {
+                    secondNum = currentNumber;
+                    firstNum = operate(firstNum, currentOperator, secondNum);
+                    output.textContent = firstNum;
+                } else {
+                    firstNum = currentNumber;
+                }
+                
+                currentOperator = keyPressed === "+" ? "+" :
+                keyPressed === "-" ? "-" :
+                keyPressed === "*" ? "*" : "/";
+                currentNumber = "";
     
+                document.getElementById(currentOperator.toString()).style.opacity = 0.7;            
+                    break;
+            case "=":
+            case "Enter": 
+                let equal = document.getElementById("=");
+                equal.style.opacity = 0.7;
+                setTimeout(() => {
+                    equal.style.opacity = 1;
+                  }, 100); 
+                secondNum = currentNumber; 
+                let finalNum = operate(firstNum, currentOperator, secondNum);
+                firstNum = finalNum;
+                currentNumber = ""; 
+                output.textContent = finalNum;
+                break;
+            default: 
+                return "error, no operator found :("
+        }
         
-    
 });
 
 
