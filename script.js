@@ -82,7 +82,6 @@ buttonContainer.addEventListener("click", (event) => {
             currentNumber = (Number(currentNumber) / 100).toFixed(2).toString();
             output.textContent = currentNumber;
         } else if (value === "decimal" && !currentNumber.includes(".")) {
-            console.log("decimal")
             currentNumber += ".";
             output.textContent = currentNumber;
         }
@@ -120,7 +119,6 @@ buttonContainer.addEventListener("click", (event) => {
 
 document.addEventListener("keydown", function(event) {
 
-
     let operators = document.querySelectorAll(".operators")
     operators.forEach(operator => operator.style.opacity = 1);
 
@@ -134,10 +132,16 @@ document.addEventListener("keydown", function(event) {
         if (output.textContent.length === 1) {
             output.textContent = "0"
             currentNumber = "";
-        } else if (Number(output.textContent) > 1) {
+        } else if (output.textContent.length > 1) {
             output.textContent = output.textContent.slice(0, -1);
-        }
+            currentNumber = output.textContent;
+        } 
+    }  else if (keyPressed === "."  && !currentNumber.includes(".")) {
+        
+        currentNumber += ".";
+        output.textContent = currentNumber;
     }
+
         switch (keyPressed) {
             case "+":
             case "-":
