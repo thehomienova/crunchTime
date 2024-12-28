@@ -14,8 +14,13 @@ function divide (x, y) {
     if (y === 0) {
         return "nope"; 
     }
+    let finalNum = x / y;
+    if (finalNum.toString().length > 7) {
+        return Math.floor(finalNum * 100) / 100;
+    } else {
+        return finalNum;
+    }
 
-    return x / y;
 }
 
 function operate (x, operator, y) {
@@ -42,6 +47,7 @@ let currentNumber = "";
 let firstNum = "";
 let secondNum = "";
 let currentOperator = "";
+let finalNum = "";
 
 buttonContainer.addEventListener("click", (event) => {
     if (event.target.tagName === "BUTTON") {
@@ -49,13 +55,18 @@ buttonContainer.addEventListener("click", (event) => {
         operators.forEach(operator => operator.style.opacity = 1);
 
         let value = event.target.getAttribute("data-value");
+       
 
         if (!isNaN(value) && currentNumber.length < 7) {
             currentNumber += value;
-            output.textContent = currentNumber; 
+            output.textContent = currentNumber;
         } else if (value === "clear"){
             output.textContent = "0";
             currentNumber = "";
+            firstNum = "";
+            secondNum = "";
+            currentOperator = "";
+            finalNum = "";
         } else if (value === "sign"){
             currentNumber = (-1 * Number(currentNumber)).toString();
             output.textContent = currentNumber;
@@ -63,45 +74,85 @@ buttonContainer.addEventListener("click", (event) => {
             currentNumber = (Number(currentNumber) / 100).toFixed(2).toString();
             output.textContent = currentNumber;
         } else if (value === "decimal" && !currentNumber.includes(".")) {
+            console.log("decimal")
             currentNumber += ".";
             output.textContent = currentNumber;
         }
 
         switch (value) {
             case "add":
-                currentOperator = "+";
-                event.target.style.opacity = 0.7;
-                firstNum = currentNumber;
-                currentNumber = "";
-                break;
             case "subtract":
-                currentOperator = "-";
-                event.target.style.opacity = 0.7;
-                firstNum = currentNumber;
-                currentNumber = "";
-                break;
             case "multiply":
-                currentOperator = "*";
-                event.target.style.opacity = 0.7;
-                firstNum = currentNumber;
-                currentNumber = "";
-                break;
             case "divide":
-                currentOperator = "/";
-                event.target.style.opacity = 0.7;
-                firstNum = currentNumber;
+                if (firstNum && currentOperator && currentNumber) {
+                    secondNum = currentNumber;
+                    firstNum = operate(firstNum, currentOperator, secondNum);
+                    output.textContent = firstNum;
+                } else {
+                    firstNum = currentNumber;
+                }
+                currentOperator = value === "add" ? "+" :
+                value === "subtract" ? "-" :
+                value === "multiply" ? "*" : "/";
                 currentNumber = "";
-                break;
+                event.target.style.opacity = 0.7;
+                    break;
             case "equal":
                 secondNum = currentNumber; 
                 let finalNum = operate(firstNum, currentOperator, secondNum);
-                currentNumber = finalNum;
+                firstNum = finalNum;
+                currentNumber = ""; 
                 output.textContent = finalNum;
+                break;
             default: 
                 return "error, no operator found :("
         }
     }
 });
+
+document.addEventListener("keydown", function(event) {
+    if (event.key >= 0 || event.key <= 9) {
+        if (currentNumber.length < 7) {
+            currentNumber += event.key;
+            output.textContent = currentNumber;
+        }
+    } else if (event.key === "x") {
+        output.textContent.slice(0, -1);
+    }
+
+    switch (event.key) {
+        case "+":
+        case "-":
+        case "*":
+        case "/":
+            if (firstNum && currentOperator && currentNumber) {
+                secondNum = currentNumber;
+                firstNum = operate(firstNum, currentOperator, secondNum);
+                output.textContent = firstNum;
+            } else {
+                firstNum = currentNumber;
+            }
+            currentOperator = value === "add" ? "+" :
+            value === "subtract" ? "-" :
+            value === "multiply" ? "*" : "/";
+            currentNumber = "";
+            event.target.style.opacity = 0.7;
+                break;
+        case "equal":
+            secondNum = currentNumber; 
+            let finalNum = operate(firstNum, currentOperator, secondNum);
+            firstNum = finalNum;
+            currentNumber = ""; 
+            output.textContent = finalNum;
+            break;
+        default: 
+            return "error, no operator found :("
+    }
+        
+        
+    
+});
+
 
 
 
