@@ -7,19 +7,26 @@ function subtract (x,y) {
 }
 
 function multiply (x, y) {
-    return x * y;
+    let finalNum = x * y;
+    if (finalNum.toString().length > 7) {
+        return Math.floor(finalNum * 100) / 100;
+    } else {
+        return finalNum;
+    }
 }
 
 function divide (x, y) {
     if (y === 0) {
         return "nope"; 
     }
+
     let finalNum = x / y;
     if (finalNum.toString().length > 7) {
         return Math.floor(finalNum * 100) / 100;
     } else {
         return finalNum;
     }
+    
 
 }
 
@@ -48,6 +55,7 @@ let firstNum = "";
 let secondNum = "";
 let currentOperator = "";
 let finalNum = "";
+
 
 buttonContainer.addEventListener("click", (event) => {
     if (event.target.tagName === "BUTTON") {
@@ -111,44 +119,29 @@ buttonContainer.addEventListener("click", (event) => {
 });
 
 document.addEventListener("keydown", function(event) {
-    if (event.key >= 0 || event.key <= 9) {
-        if (currentNumber.length < 7) {
-            currentNumber += event.key;
+
+    let operators = document.querySelectorAll(".operators")
+    operators.forEach(operator => operator.style.opacity = 1);
+
+    let keyPressed = event.key;
+    if (keyPressed >= 0 || keyPressed <= 9) {
+        if (currentNumber.toString().length < 7) {
+            currentNumber += keyPressed;
             output.textContent = currentNumber;
         }
-    } else if (event.key === "x") {
-        output.textContent.slice(0, -1);
+    } else if (keyPressed === "Backspace") {
+        if (output.textContent.length === 1) {
+            output.textContent = "0"
+            currentNumber = "";
+        } else if (Number(output.textContent) > 1) {
+            output.textContent = output.textContent.slice(0, -1);
+        }
+    
+        
+        
     }
 
-    switch (event.key) {
-        case "+":
-        case "-":
-        case "*":
-        case "/":
-            if (firstNum && currentOperator && currentNumber) {
-                secondNum = currentNumber;
-                firstNum = operate(firstNum, currentOperator, secondNum);
-                output.textContent = firstNum;
-            } else {
-                firstNum = currentNumber;
-            }
-            currentOperator = value === "add" ? "+" :
-            value === "subtract" ? "-" :
-            value === "multiply" ? "*" : "/";
-            currentNumber = "";
-            event.target.style.opacity = 0.7;
-                break;
-        case "equal":
-            secondNum = currentNumber; 
-            let finalNum = operate(firstNum, currentOperator, secondNum);
-            firstNum = finalNum;
-            currentNumber = ""; 
-            output.textContent = finalNum;
-            break;
-        default: 
-            return "error, no operator found :("
-    }
-        
+    
         
     
 });
