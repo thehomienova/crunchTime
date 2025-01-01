@@ -7,7 +7,7 @@ body {
 }
 
 #calc {
-    background-color: black;
+    background-color: rgb(33, 33, 33);
     border: 7px black solid;
     height: 90vh;
     width: 65vh;
@@ -18,12 +18,16 @@ body {
 
 #display {
     height: 17%;
-    background-color: rgb(221, 221, 221);
+    background-color: rgb(240, 240, 240);
     font-size: 600%;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
     margin: 2px;
+}
+
+#output {
+    color: rgb(40, 40, 40);
 }
 
 #buttons {
@@ -49,15 +53,18 @@ body {
 }
 
 .misc {
-    background-color: rgb(101, 101, 245);
+    background-color: rgb(175, 197, 255);
+    color: rgb (20, 20, 20);
 }
 
 .operators {
-    background-color: rgb(238, 180, 73);
+    background-color: rgb(255, 173, 96);
+    color: rgb(33, 33, 33);
 }
 
 .numbers {
-    background-color: rgb(122, 250, 122);
+    background-color: rgb(173, 232, 196);
+    color: rgb(0, 43, 54);
 }
 
 .operators {

@@ -9,7 +9,7 @@ function subtract (x,y) {
 function multiply (x, y) {
     let finalNum = x * y;
     if (finalNum.toString().length > 7) {
-        return Math.floor(finalNum * 100) / 100;
+        return finalNum.toString().slice(0, 7);
     } else {
         return finalNum;
     }
@@ -20,9 +20,11 @@ function divide (x, y) {
         return "nope"; 
     }
 
+    
     let finalNum = x / y;
+    
     if (finalNum.toString().length > 7) {
-        return Math.floor(finalNum * 100) / 100;
+        return finalNum.toString().slice(0,7);
     } else {
         return finalNum;
     }
@@ -98,12 +100,13 @@ buttonContainer.addEventListener("click", (event) => {
                 } else {
                     firstNum = currentNumber;
                 }
+                
                 currentOperator = value === "add" ? "+" :
                 value === "subtract" ? "-" :
                 value === "multiply" ? "*" : "/";
                 currentNumber = "";
                 event.target.style.opacity = 0.7;
-                    break;
+                break;
             case "equal":
                 secondNum = currentNumber; 
                 let finalNum = operate(firstNum, currentOperator, secondNum);
@@ -118,6 +121,7 @@ buttonContainer.addEventListener("click", (event) => {
 });
 
 document.addEventListener("keydown", function(event) {
+   console.log(event.key)
 
     let operators = document.querySelectorAll(".operators")
     operators.forEach(operator => operator.style.opacity = 1);
@@ -142,42 +146,48 @@ document.addEventListener("keydown", function(event) {
         output.textContent = currentNumber;
     }
 
-        switch (keyPressed) {
-            case "+":
-            case "-":
-            case "*":
-            case "/":
-                if (firstNum && currentOperator && currentNumber) {
-                    secondNum = currentNumber;
-                    firstNum = operate(firstNum, currentOperator, secondNum);
-                    output.textContent = firstNum;
-                } else {
-                    firstNum = currentNumber;
-                }
+    switch (keyPressed) {
+        case "+":
+        case "-":
+        case "*":
+        case "/":
+            if (firstNum && currentOperator && currentNumber) {
+                secondNum = currentNumber;
+                firstNum = operate(firstNum, currentOperator, secondNum);
+                output.textContent = firstNum;
+            } else {
+                firstNum = currentNumber;
+            }
                 
-                currentOperator = keyPressed === "+" ? "+" :
-                keyPressed === "-" ? "-" :
-                keyPressed === "*" ? "*" : "/";
-                currentNumber = "";
-    
-                document.getElementById(currentOperator.toString()).style.opacity = 0.7;            
-                    break;
-            case "=":
-            case "Enter": 
-                let equal = document.getElementById("=");
-                equal.style.opacity = 0.7;
-                setTimeout(() => {
-                    equal.style.opacity = 1;
-                  }, 100); 
-                secondNum = currentNumber; 
-                let finalNum = operate(firstNum, currentOperator, secondNum);
-                firstNum = finalNum;
-                currentNumber = ""; 
-                output.textContent = finalNum;
+            currentOperator = keyPressed === "+" ? "+" :
+            keyPressed === "-" ? "-" :
+            keyPressed === "*" ? "*" : "/";
+            currentNumber = "";
+            document.getElementById(currentOperator.toString()).style.opacity = 0.7;            
                 break;
-            default: 
-                return "error, no operator found :("
-        }
+            
+        case "=": 
+        case "Enter": 
+            
+            let equal = document.getElementById("=");
+            equal.style.opacity = 0.7;
+            setTimeout(() => {
+                equal.style.opacity = 1;
+            }, 100); 
+            secondNum = currentNumber; 
+            let finalNum = operate(firstNum, currentOperator, secondNum);
+            firstNum = finalNum;
+            currentNumber = ""; 
+            output.textContent = finalNum;
+            firstNum = "";
+            secondNum = "";
+            currentNumber = finalNum;
+            currentOperator = "";
+            
+            break;
+        default: 
+            return "error, no operator found :("
+    }
         
 });
 
