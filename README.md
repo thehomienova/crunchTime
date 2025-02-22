@@ -1,2 +1,2 @@
 # crunchTime
-a calculator app
+a calculator app, time to crunch some numbers!
